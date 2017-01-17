@@ -1,0 +1,5 @@
+<h1><%=@user.name%>'s Profile</h1>
+
+<% @user.events.each do |e| %>
+	<p><%= e.name %></p>
+<% end %>
