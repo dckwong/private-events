@@ -1,0 +1,22 @@
+<div class="well">
+	<h5 class='text-center'><%= link_to event.name, event %></h5>
+
+	<div class='row'>
+		<p><%= event.description %></p>
+	</div>
+
+	<div class='row'>
+		<span class='glyphicon glyphicon-map-marker'>
+			<%= event.location %>
+		</span>
+	</div>
+
+	<div class='row'>
+		<span class='glyphicon glyphicon-calendar'>
+			<%= event.date.strftime("%-m/%-d/%Y  at %H:%M") %>
+		</span>
+		<span class='pull-right'>
+			Host: <%= link_to event.creator.name, event.creator %>
+		</span>
+	</div>
+</div>

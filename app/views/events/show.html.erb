@@ -1,6 +1,32 @@
-<h1><%= @event.name %></h1>
+<div class="container cont">
+	<h1><%= @event.name %></h1>
 
-<p>Host: <%= @event.user.name %></p>
-<p>Time: <%= @event.date.strftime("%A, %B %d %Y") %></p>
+	<p>Host: <%= @event.creator.name %></p>
+	<p>Time: <%= @event.date.strftime("%A, %B %d %Y") %></p>
+	<p>Location: <%= @event.location %></p>
+	<p><%= @event.description %></p>
 
-<p><%= @event.description %></p>
+	<div class='col-md-6'>
+		<h2>Attending:</h2>
+		<ul>
+		<% @event.invitations.each do |i| %>
+			<li><%= link_to i.invitee.name, i.invitee %></li>
+		<% end %>
+		</ul>
+	</div>
+
+	<% if logged_in? %>
+		<% if current_user != @event.creator %>
+			<div class="col-md-4">
+				<% if current_user.invited_events.include?(@event) %>
+					<%= link_to "Cancel Attendance", current_user.invitations.find_by(event_id: @event.id), method: :delete, class: 'btn btn-danger' %>
+				<% else %>
+					<%= form_for(current_user.invitations.build(event_id: @event.id)) do |f| %>
+						<%= f.hidden_field :event_id, value: @event.id %>
+						<%= f.submit "Attend", class: 'btn btn-primary' %>
+					<% end %>
+				<% end %>
+			</div>
+		<% end %>
+	<% end %>
+</div>

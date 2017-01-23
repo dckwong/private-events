@@ -1,7 +1,14 @@
-<h1>Event's list</h1>
-<ul>
-<% @events.each do |e| %>
-	<li><%= e.name %> at: <%= e.date %></li>
-<% end %>
-</ul>
+<div class="container cont">
+	<h1 class='text-center'>Events</h1>
+
+	<div class='col-md-6'>
+		<h2 class='text-center'>Upcoming Events</h2>
+		<%= render @events.upcoming %>
+	</div>
+
+	<div class='col-md-6'>
+		<h2 class='text-center'>Past Events</h2>
+		<%= render @events.previous %>
+	</div>
+</div>
 	

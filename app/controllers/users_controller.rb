@@ -7,6 +7,7 @@ class UsersController < ApplicationController
 		@user = User.new(user_params)
 		if @user.save
 			flash[:success] = "User created"
+			log_in(@user)
 			redirect_to @user
 		else
 			render 'new'
@@ -14,7 +15,10 @@ class UsersController < ApplicationController
 	end
 
 	def show
+		redirect_to root_url unless logged_in?
 		@user = User.find_by(id: params[:id])
+		@upcoming_events = @user.upcoming_events
+		@prev_events = @user.previous_events
 	end
 
 	private
